@@ -3,18 +3,25 @@
  */
 'use strict'
 
-var React = require('react')
-var ReactDOM = require('react-dom')
+const React = require('react')
+const ReactDOM = require('react-dom')
+try {
+    const Hello = React.createClass({
+        render: function () {
+            var i = this.props.index
+            var message = `Hello ${i} you`
+            return React.DOM.p(null, message)
+        }
+    })
 
-var Hello = React.createClass({
-    render: () => {
-        var i = 4
-        var message = `Hello ${i} you`
-        return <h1>{message}</h1>
-    }
-})
+    let $i = 0
 
-ReactDOM.render(
-    <Hello />,
-    document.getElementById('example')
-)
+    setInterval(() => {
+        ReactDOM.render(
+            React.createElement(Hello, { index: $i++ }),
+            document.getElementById('example'));
+    }, 50)
+
+} catch (ex) {
+    console.error(ex)
+}
